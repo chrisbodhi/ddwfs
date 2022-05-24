@@ -8,7 +8,8 @@ func main() {
 	// l := FetchDatasets()
 	// fmt.Println("got", len(l), "datasets downloaded as zips")
 
-	Try()
+	Setup()
+	// Try()
 
 	fmt.Println("tried it")
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/datadotworld/dwapi-go/dwapi"
 )
@@ -50,9 +51,18 @@ func FetchDatasets() []string {
 
 	// fmt.Println("contribList is at the end of", toDownload)
 
+	downloads := 0
+
 	for _, id := range toDownload {
 		fmt.Println("getting", id)
 		r, err := dw.Dataset.DownloadAndSave(owner, id, "./"+id+".zip")
+		downloads += 1
+		if downloads > 10 {
+			fmt.Println("(Taking a breather...)")
+			// Pause for 429's
+			time.Sleep(60 * time.Second)
+			downloads = 0
+		}
 		if err != nil {
 			log.Fatalln(err)
 		}

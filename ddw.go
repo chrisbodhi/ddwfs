@@ -11,10 +11,18 @@ import (
 
 func FetchDatasets() []string {
 	token := os.Getenv("DW_AUTH_TOKEN")
+	if len(token) == 0 {
+		log.Fatalln("Missing DW_AUTH_TOKEN")
+	}
+
 	dw := dwapi.NewClient(token)
 
 	// TODO parse token for this info
 	owner := os.Getenv("DW_USERNAME")
+
+	if len(owner) == 0 {
+		log.Fatalln("Missing DW_USERNAME")
+	}
 
 	fmt.Println("owner is", owner)
 

@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/jacobsa/fuse"
 	"github.com/jacobsa/fuse/samples/hellofs"
@@ -24,7 +26,14 @@ func Try() {
 		// DebugLogger: log.New(os.Stderr, "fuse: ", 0),
 	}
 
-	mfs, err := fuse.Mount("./mnt", server, cfg)
+	owner := os.Getenv("DW_USERNAME")
+	if len(owner) == 0 {
+		log.Fatalln("Missing DW_USERNAME")
+	}
+
+	mntPoint := filepath.Join(".", owner)
+
+	mfs, err := fuse.Mount(mntPoint, server, cfg)
 	if err != nil {
 		log.Fatalf("Mount: %v", err)
 	}

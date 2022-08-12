@@ -9,7 +9,7 @@ func main() {
 	// fmt.Println("got", len(l), "datasets downloaded as zips")
 
 	Setup()
-	Try()
+	Mount("", "./chrisbodhi")
 
 	fmt.Println("tried it")
 }
